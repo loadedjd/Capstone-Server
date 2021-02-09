@@ -1,6 +1,6 @@
 import yfinance as yf
 import sys 
-
+import json
 # demo for using yfinance API to gather info about any stocks entered as an argument
 # argument must be a real stock ticker, case insensitive
 def main():
@@ -56,6 +56,7 @@ def main():
 
     # get stock info
     info = stock.info
+    # different keys one can search for
     print("\nINFO KEYS\n")
     print(info.keys())
 
