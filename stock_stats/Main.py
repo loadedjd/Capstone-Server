@@ -39,7 +39,8 @@ def main():
     # msft.quarterly_earnings
 
     # # show sustainability
-    # msft.sustainability
+    # print("\nSUSTAINIBILITY\n")
+    # print(stock.sustainability)
 
     # # show ISIN code - *experimental*
     # # ISIN = International Securities Identification Number
@@ -63,10 +64,18 @@ def main():
     print("\nSUMMARY\n")
     print(info['longBusinessSummary'])
 
+    
+
     # get historical market data
     hist = stock.history(period="max")
     print("\nHISTORY\n")
     print(hist)
+
+    # convert dataframe into json dump
+    result = hist.to_json(orient="split")
+    parsed = json.loads(result)
+    print(json.dumps(parsed, indent=4))
+
 
      # show analysts recommendations
     print("\nRECCOMENDATIONS \n")
