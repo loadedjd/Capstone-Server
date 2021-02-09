@@ -1,54 +1,53 @@
 import json
+import sys
+
 from apiKeys import Init
 from ibm_watson import DiscoveryV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 
 
-def queryStocks():
+def setup():
     authenticator = IAMAuthenticator(Init.get("WatsonKey"))
     discovery = DiscoveryV1(
         version='2019-04-30',
         authenticator=authenticator
     )
     discovery.set_service_url('https://api.us-south.discovery.watson.cloud.ibm.com')
-    environments = discovery.list_environments().get_result()
-    print(json.dumps(environments, indent=2))
+    return discovery
 
-    system_environments = [x for x in environments['environments'] if x['name'] == 'Watson System Environment']
-    system_environment_id = system_environments[0]['environment_id']
 
-    collections = discovery.list_collections(system_environment_id).get_result()
-    system_collections = [x for x in collections['collections']]
-    print(json.dumps(system_collections, indent=2))
-    natural_language_query = input('Enter a query: ')
-    print("Results within last _____(number) _________(units of time)")
-    timeAmount = input('Num: ')
-    timeUnits = input('Units: (minutes hours days months years): ')
-    print("Searching for articles about " + natural_language_query + " from the last " + str(timeAmount) + timeUnits)
+# Run query on Watson News given arguments Query [0], Time[1], Count[2]
+# Time - Range of time to search
+#   Format: NumUnit
+#       Unit: minutes, hours, days, months, or years
+#       Num: Integer
+#   Searches articles within last (Num) (Units)
+#       Ex: Within last 6 months
+# Query - Text to search
+#   Format: String
+# Count - Number of articles to return
+#   Format: Integer
+# Return Value: json dump of all returned from query (May change to be more specifically formated
+def queryStocks():
+    discovery = setup()
+
     en_id = "system"
-    query = natural_language_query
     passages = True
-    count = 10
+    query = sys.argv[1]
+    natural_language_query = query
+    time = sys.argv[2]
+    count = sys.argv[3]
     highlight = True
     deduplicate = True
-    filter = "crawl_date>=now-" + str(timeAmount) + timeUnits
+    filterSearch = "crawl_date>=now-" + time
+
+    print("Searching for articles about " + natural_language_query + " from the last " + time)
 
     response = discovery.query(environment_id=en_id, collection_id='news-en', query=query,
                                natural_language_query=natural_language_query, passages=True,
-                               count=10, highlight=True, deduplicate=True, filter=filter)
+                               count=10, highlight=True, deduplicate=True, filter=filterSearch)
     print(response)
-    # print("Query Watson Discovery News for Sentimental Stock Data (News, web, etc) - Search: GameStop")
-    # print(response2.text)
 
 
 if __name__ == '__main__':
     queryStocks()
-
-# /instances/a831d53b-e853-41b8-8e2a-'
-#                               'b5664b665b96/v1/environments/system/collections/news-en/query?version=2018-12-03&'
-#                               'filter=enriched_title.semantic_roles%3A%28action.normalized%3Aacquire%2Cobject.entities'
-#                               '%3A%28'
-#                               'type%3A%3ACompany%29%29&'
-#                               'highlight=true&'
-#                               'passages.count=5&'
-#                               'natural_language_query=gamestop'
