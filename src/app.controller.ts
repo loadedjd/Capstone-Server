@@ -11,7 +11,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    this.pyService.runTestScript();
+    // this.pyService.runTestScript();
     return 'Hello, World!';
   }
 }
