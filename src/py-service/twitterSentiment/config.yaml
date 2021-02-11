@@ -1,0 +1,6 @@
+search_tweets_api:
+  bearer_token: AAAAAAAAAAAAAAAAAAAAADa3MQEAAAAAGk64ewK1t%2BJO%2FQtt%2BGQLL7UM5tU%3DvwqwuowJUbnnaigB2pmZOb8DIkirJF2JrrHxyMg5c6aircq6o7
+  API_key: V7IC2XYlWw69FdNpz404ZxEuP
+  API_key_secret: UQYOOElOYfwqyjXnUO5PkCkS0wY7cCoFvrkivN4EKjAryP8tOm
+azure:
+  subscription_key: 8c8928ac5d96410cb68be8a0e13b92c9
