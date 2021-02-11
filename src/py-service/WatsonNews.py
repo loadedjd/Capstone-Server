@@ -28,9 +28,8 @@ def setup():
 # Count - Number of articles to return
 #   Format: Integer
 # Return Value: json dump of all returned from query (May change to be more specifically formated
-def queryStocks():
-    discovery = setup()
-
+def queryStocks(discovery_):
+    discovery = discovery_
     en_id = "system"
     passages = True
     query = sys.argv[1]
@@ -49,5 +48,41 @@ def queryStocks():
     print(response)
 
 
+# Run query on Watson News
+# Return Value: json dump of top 10 most recent articles about the stock market
+def headlines(discovery_):
+    discovery = discovery_
+
+    en_id = "system"
+    passages = True
+    query = "Stocks"
+    natural_language_query = query
+    count = 10
+    highlight = True
+    deduplicate = True
+    filterSearch = "crawl_date>=now-1day"
+
+    print("Showing top articles for Stocks in the last day")
+
+    response = discovery.query(environment_id=en_id, collection_id='news-en', query=query,
+                               natural_language_query=natural_language_query, passages=False,
+                               count=5, highlight=True, deduplicate=True, filter=filterSearch)
+    out_file = open("news.json", "w")
+    json.dump(response.get_result(), out_file, indent=6, skipkeys=True)
+
+    out_file.close()
+
+
+def main():
+    discovery = setup()
+    print("Main")
+    if sys.argv[1] == 'query':
+        queryStocks(discovery)
+    elif sys.argv[1] == 'headlines':
+        print("Calling headlines")
+        headlines(discovery)
+    print("Huh")
+
+
 if __name__ == '__main__':
-    queryStocks()
+    main()
