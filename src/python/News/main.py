@@ -87,7 +87,6 @@ def headlines(discovery_):
 
 def main():
     discovery = setup()
-    print("Main")
     if sys.argv[1] == 'query':
         print("Calling query")
         queryStocks(discovery)

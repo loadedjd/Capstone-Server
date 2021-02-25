@@ -1,6 +1,6 @@
 import { Controller, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { PyServiceService } from 'src/py-service/py-service.service';
+import { PyServiceService } from 'src/Services/py-service/py-service.service';
 
 @Controller('api')
 export class ApiController {
@@ -11,7 +11,7 @@ export class ApiController {
     const ticker = req.body['ticker'];
 
     // Pass ticker to python service, await the result
-    this.pythonService.runTestScript('Main.py');
+    this.pythonService.runTestScript('Stock/main.py');
 
     const data = { service: 'stock', ticker };
 
@@ -34,6 +34,7 @@ export class ApiController {
     const ticker = req.body['ticker'];
 
     // Pass ticker to python service, await the result
+    this.pythonService.runTestScript('News/main.py');
 
     const data = { service: 'news', ticker };
 

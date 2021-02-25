@@ -7,7 +7,7 @@ export class PyServiceService {
     let options: Options = {
       mode: 'json',
       pythonOptions: ['-u'], // get print results in real-time
-      scriptPath: 'src/api/python',
+      scriptPath: 'src/python',
       args: ['tsla'],
     };
 
