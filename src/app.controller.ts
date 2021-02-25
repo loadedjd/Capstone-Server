@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { PyServiceService } from './py-service/py-service.service';
+import { PyServiceService } from './Services/py-service/py-service.service';
 
 @Controller()
 export class AppController {

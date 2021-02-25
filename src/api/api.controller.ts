@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { PyServiceService } from 'src/py-service/py-service.service';
+import { PyServiceService } from 'src/Services/py-service/py-service.service';
 
 @Controller('api')
 export class ApiController {
@@ -11,9 +11,13 @@ export class ApiController {
     const ticker = req.body['ticker'];
 
     // Pass ticker to python service, await the result
-    this.pythonService.runTestScript('stock.py', [ticker], (err, results) => {
-      res.json({ service: 'stock', data: JSON.parse(results) }).send();
-    });
+    this.pythonService.runTestScript(
+      'Stock/main.py',
+      [ticker],
+      (err, results) => {
+        res.json({ service: 'stock', data: JSON.parse(results) }).send();
+      },
+    );
   }
 
   @Get('sentiment')
@@ -38,10 +42,17 @@ export class ApiController {
   }
 
   @Get('news')
-  async getNews(@Req() req: Request) {
+  async getNews(@Req() req: Request, @Res() res: Response) {
     const ticker = req.body['ticker'];
 
     // Pass ticker to python service, await the result
+    this.pythonService.runTestScript(
+      'News/main.py',
+      ['query', ticker],
+      (err, results) => {
+        res.json({ service: 'news', data: JSON.parse(results) }).send();
+      },
+    );
 
     const data = { service: 'news', ticker };
 
