@@ -46,8 +46,8 @@ def queryStocks():
     response = discovery.query(environment_id=en_id, collection_id='news-en', query=query,
                                natural_language_query=natural_language_query, passages=True,
                                count=10, highlight=True, deduplicate=True, filter=filterSearch)
-    print(response)
+    print(json.dumps(response))
 
 
-if __name__ == '__main__':
+def main():
     queryStocks()
