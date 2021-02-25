@@ -60,7 +60,7 @@ def queryStocks(discovery_):
 # Run query on Watson News
 # Return Value: json dump of top 10 most recent articles about the stock market
 def headlines(discovery_):
-    if len(sys.argv) < 3:  # Error check for arguments needed
+    if len(sys.argv) < 2:  # Error check for arguments needed
         print("ERROR: Invalid Arguments. Use format: 'WatsonNews.py headlines {query}")
     else:
         print("Headlines")
@@ -87,6 +87,7 @@ def headlines(discovery_):
 
 def main():
     discovery = setup()
+    print('Main')
     if sys.argv[1] == 'query':
         print("Calling query")
         queryStocks(discovery)
