@@ -41,7 +41,7 @@ export class ApiController {
         if (err) {
           res.send(err);
         } else {
-          res.json({ service: 'sentiment', data: results }).send();
+          res.json({ service: 'News', data: JSON.parse(results) }).send();
         }
       },
     );

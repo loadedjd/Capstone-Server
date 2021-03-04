@@ -51,7 +51,7 @@ def queryStocks(discovery_):
         response = discovery.query(environment_id=en_id, collection_id='news-en', query=query,
                                    natural_language_query=natural_language_query, passages=False,
                                    count=10, highlight=True, deduplicate=True, filter=filterSearch)  # query Discovery
-        print(json.dumps(response.result['results'][0]))  # Print response to stdout
+        print(json.dumps(response.result['results']))  # Print response to stdout
 
 
 # Run query on Watson News
