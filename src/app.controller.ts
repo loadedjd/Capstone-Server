@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PyServiceService } from './Services/py-service/py-service.service';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -10,8 +11,9 @@ export class AppController {
   ) {}
 
   @Get()
-  getHello(): string {
-    // this.pyService.runTestScript();
-    return 'Hello, World!';
+  getIndex(@Res() res: Response): string {
+    res.sendFile('index.html', { root: 'web/build' });
+
+    return '';
   }
 }
