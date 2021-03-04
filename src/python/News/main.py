@@ -33,7 +33,6 @@ def queryStocks(discovery_):
         print("ERROR: Invalid Arguments. Use format: 'WatsonNews.py query {query} {time} {count}. Time and Count "
               "optional")
     else:
-        print("Query")
         discovery = discovery_  # Init discovery with passed in object
         en_id = "system"  # Set environment
         query = sys.argv[1]  # get query from args
@@ -49,12 +48,10 @@ def queryStocks(discovery_):
         time = count + time  # Create time filter, default to 1 year
         filterSearch = "crawl_date>=now-" + time
 
-        print("Searching for articles about " + natural_language_query + " from the last " + time)
-
         response = discovery.query(environment_id=en_id, collection_id='news-en', query=query,
                                    natural_language_query=natural_language_query, passages=False,
                                    count=10, highlight=True, deduplicate=True, filter=filterSearch)  # query Discovery
-        print(response)  # Print response to stdout
+        print(json.dumps(response.result['results'][0]))  # Print response to stdout
 
 
 # Run query on Watson News
@@ -88,10 +85,8 @@ def headlines(discovery_):
 def main():
     discovery = setup()
     if sys.argv[1] == 'query':
-        print("Calling query")
         queryStocks(discovery)
     elif sys.argv[1] == 'headlines':
-        print("Calling headlines")
         headlines(discovery)
 
 

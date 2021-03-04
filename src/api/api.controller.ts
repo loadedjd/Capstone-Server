@@ -28,20 +28,20 @@ export class ApiController {
 
   @Get('sentiment')
   async getSentiment(@Req() req: Request, @Res() res: Response) {
-    const ticker = req.header['ticker'];
+    const ticker = req.headers['ticker'] as string;
 
     // Pass ticker to python service, await the result
 
     this.pythonService.runTestScript(
-      'discovery.py',
-      [ticker],
+      'News/main.py',
+      ['query', ticker],
       (err, results) => {
+        console.error(err);
+
         if (err) {
-          console.error(err);
           res.send(err);
         } else {
-          console.log(results);
-          res.json({ service: 'sentiment', data: JSON.parse(results) }).send();
+          res.json({ service: 'sentiment', data: results }).send();
         }
       },
     );
@@ -56,7 +56,8 @@ export class ApiController {
       'News/main.py',
       ['query', ticker],
       (err, results) => {
-        res.json({ service: 'news', data: JSON.parse(results) }).send();
+        return results;
+        // res.json({ service: 'news', data: JSON.parse(results) }).send();
       },
     );
 
