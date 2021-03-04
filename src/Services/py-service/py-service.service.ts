@@ -15,6 +15,8 @@ export class PyServiceService {
       args: args,
     };
 
+    console.log('🐍 Running Python Script ', script, ' for ticker ', args);
+
     PythonShell.run(script, options, callback);
   }
 }

@@ -8,21 +8,27 @@ export class ApiController {
 
   @Get('stock')
   async getStockData(@Req() req: Request, @Res() res: Response) {
-    const ticker = req.body['ticker'];
+    const ticker = req.headers['ticker'] as string;
 
     // Pass ticker to python service, await the result
     this.pythonService.runTestScript(
       'Stock/main.py',
       [ticker],
       (err, results) => {
-        res.json({ service: 'stock', data: JSON.parse(results) }).send();
+        const data = JSON.parse(results);
+
+        if (err) {
+          return err;
+        }
+
+        res.json({ service: 'stock', data: data }).send();
       },
     );
   }
 
   @Get('sentiment')
   async getSentiment(@Req() req: Request, @Res() res: Response) {
-    const ticker = req.body['ticker'];
+    const ticker = req.header['ticker'];
 
     // Pass ticker to python service, await the result
 
