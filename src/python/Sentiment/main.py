@@ -2,10 +2,13 @@ import requests
 import pandas as pd
 import json
 import ast
+import sys
 import yaml
+import ssl
 
-def create_twitter_url():
-    handle = "tesla"
+
+def create_twitter_url(ticker):
+    handle = ticker
     max_results = 10
     mrf = "max_results={}".format(max_results)
     q = "query=from:{}".format(handle)
@@ -15,7 +18,7 @@ def create_twitter_url():
     return url
 
 def process_yaml():
-    with open("config.yaml") as file:
+    with open("src/python/Sentiment/config.yaml") as file:
         return yaml.safe_load(file)
 
 def create_bearer_token(data):
@@ -62,7 +65,7 @@ def week_logic(week_score):
         print("Negative average.")
         
 def main():
-    url = create_twitter_url()
+    url = create_twitter_url(sys.argv[1])
     data = process_yaml()
     bearer_token = create_bearer_token(data)
     res_json = twitter_auth_and_connect(bearer_token, url)
@@ -76,9 +79,10 @@ def main():
     #print("Mean sentiment score: " + str(week_score))
     #week_logic(week_score)
     
-    print(json.dumps(sentiments, indent=2))
-    print(json.dumps(res_json, indent= 2))
+    print(json.dumps(sentiments))
     
 
 if __name__ == "__main__":
+
+    ssl._create_default_https_context = ssl._create_unverified_context
     main()

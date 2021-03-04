@@ -26,7 +26,7 @@ export class ApiController {
     );
   }
 
-  @Get('sentiment')
+  @Get('news')
   async getSentiment(@Req() req: Request, @Res() res: Response) {
     const ticker = req.headers['ticker'] as string;
 
@@ -47,17 +47,17 @@ export class ApiController {
     );
   }
 
-  @Get('news')
+  @Get('sentiment')
   async getNews(@Req() req: Request, @Res() res: Response) {
-    const ticker = req.body['ticker'];
+    const ticker = req.headers['ticker'] as string;
 
     // Pass ticker to python service, await the result
     this.pythonService.runTestScript(
-      'News/main.py',
-      ['query', ticker],
+      'Sentiment/main.py',
+      [ticker],
       (err, results) => {
-        return results;
-        // res.json({ service: 'news', data: JSON.parse(results) }).send();
+        console.log(err);
+        res.json({ service: 'news', data: JSON.parse(results[0]) }).send();
       },
     );
 
