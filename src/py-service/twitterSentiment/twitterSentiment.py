@@ -5,12 +5,12 @@ import ast
 import yaml
 
 def create_twitter_url():
-    handle = "tesla"
+    query = "$tsla"
     max_results = 10
     mrf = "max_results={}".format(max_results)
-    q = "query=from:{}".format(handle)
+    q = "query={}".format(query)
     url = "https://api.twitter.com/2/tweets/search/recent?{}&{}".format(
-        mrf, q
+        q, mrf
     )
     return url
 
@@ -68,15 +68,15 @@ def main():
     res_json = twitter_auth_and_connect(bearer_token, url)
     sentiment_url, subscription_key = connect_to_azure(data)
     headers = azure_header(subscription_key)
-    document_format = create_document_format(res_json)
-    sentiments = sentiment_scores(headers, sentiment_url, document_format)
+    #document_format = create_document_format(res_json)
+    #sentiments = sentiment_scores(headers, sentiment_url, document_format)
 
 
     #week_score = mean_score(sentiments)
     #print("Mean sentiment score: " + str(week_score))
     #week_logic(week_score)
     
-    print(json.dumps(sentiments, indent=2))
+    #print(json.dumps(sentiments, indent=2))
     print(json.dumps(res_json, indent= 2))
     
 
