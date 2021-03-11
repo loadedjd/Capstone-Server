@@ -1,25 +1,25 @@
 import React from 'react';
 import './App.css';
-import {News} from './news';
+import Home from './Home';
+import { createMuiTheme, ThemeProvider} from '@material-ui/core';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#ffdb06',
+    },
+    secondary: {
+      main: "#FFFFFF"
+    }
+  },
+});
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <News />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <Home />;
+    </ThemeProvider>
+)
 }
 
 export default App;
