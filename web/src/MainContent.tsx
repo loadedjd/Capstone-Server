@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
-import ImgMediaCard from "./NewsCard";
+import NewsBar from "./NewsBar"
 
 import StockDisplay from "./Stock.Component/display"
 import { findByLabelText } from '@testing-library/dom';
@@ -40,36 +40,21 @@ function MainContent() {
           <div className={classes.content}>
             <Grid
               container
-              spacing={1}
-              direction="column"
-              justify="flex-start"
-              alignItems="flex-start"
+              spacing={10}
+              direction={"row"}
+              justify={"space-around"}
+              alignItems={"flex-start"}
             >
               <Grid item>
-                <Typography
-                  variant={'h4'}
-                  color={'secondary'} >
-                  Watson Discovery News
-                </Typography>
-              </Grid>
-              <Grid item >
-            <ImgMediaCard img={'gme.jpg'} desc={'Despite enthusiastic ' +
-            'retail investors, intense market manipulation has lead GameStop to ' +
-            'fall yet again'} title={'GameStop Crashes (Again)'}/>
+                <NewsBar/>
               </Grid>
               <Grid item>
-            <ImgMediaCard img={'roblox.jpg'} desc={'No, but their market share ' +
-            'sure is rising!'} title={'Is Roblox the Next Apple?'}/>
+                <StockDisplay/>
               </Grid>
-            <Grid item>
-            <ImgMediaCard img={'stim.wbp'} desc={"Who could have predicted that stimulating the economy would " +
-            "stimulate the economy?"} title={'BREAKING: Stimulus Sends Markets to the Moon'}/>
+              <Grid item>
+                <NewsBar/>
+              </Grid>
             </Grid>
-            
-            </Grid>
-
-            <StockDisplay/>
-            
             
           </div>
           

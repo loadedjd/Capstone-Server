@@ -31,10 +31,6 @@ const useStyles = makeStyles((theme) =>
 
 export default function ImgMediaCard(props: { img: string; title: string; desc: string; }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
   return (
     <Card className={classes.root}>
       <CardHeader
