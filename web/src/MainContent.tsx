@@ -5,6 +5,9 @@ import { Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
 import ImgMediaCard from "./NewsCard";
 
+import StockDisplay from "./Stock.Component/display"
+import { findByLabelText } from '@testing-library/dom';
+
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
 
@@ -33,6 +36,7 @@ function MainContent() {
           <div className={classes.title}>
             <Typography variant={'h3'} color={'secondary'} >Trading made Elementary</Typography>
           </div>
+          
           <div className={classes.content}>
             <Grid
               container
@@ -48,7 +52,7 @@ function MainContent() {
                   Watson Discovery News
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item >
             <ImgMediaCard img={'gme.jpg'} desc={'Despite enthusiastic ' +
             'retail investors, intense market manipulation has lead GameStop to ' +
             'fall yet again'} title={'GameStop Crashes (Again)'}/>
@@ -61,8 +65,14 @@ function MainContent() {
             <ImgMediaCard img={'stim.wbp'} desc={"Who could have predicted that stimulating the economy would " +
             "stimulate the economy?"} title={'BREAKING: Stimulus Sends Markets to the Moon'}/>
             </Grid>
+            
             </Grid>
+
+            <StockDisplay/>
+            
+            
           </div>
+          
       </main>
     );
 }
