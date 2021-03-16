@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
   title: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: "#000000",
     padding: theme.spacing(3),
   },
   content: {

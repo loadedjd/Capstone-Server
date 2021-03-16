@@ -9,25 +9,25 @@ function NewsBar() {
       spacing={1}
       direction="column"
       justify="flex-start"
-      alignItems="flex-start"
+      alignItems="center"
     >
-      <Grid item>
+      <Grid item xs={12}>
         <Typography
           variant={"h4"}
           color={"secondary"}>
           Watson Discovery News
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <ImgMediaCard img={"gme.jpg"} desc={"Despite enthusiastic " +
         "retail investors, intense market manipulation has lead GameStop to " +
         "fall yet again"} title={"GameStop Crashes (Again)"} />
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <ImgMediaCard img={"roblox.jpg"} desc={"No, but their market share " +
         "sure is rising!"} title={"Is Roblox the Next Apple?"} />
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <ImgMediaCard img={"stim.wbp"}
                       desc={"Who could have predicted that stimulating the economy would " +
                       "stimulate the economy?"}
