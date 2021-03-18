@@ -6,9 +6,10 @@ import roblox  from './roblox.jpg';
 import stim  from './stim.webp';
 import WebIcon from '@material-ui/icons/Web';
 import axios from 'axios';
-// const articles = (await axios.get('localhost:3000/api/news', 'gamestop')).data
 
-function NewsBar() {
+async function NewsBar() {
+  //  axios({ method:'get', url:'localhost:3000/api/news', responseType: 'json', headers: {'query': 'gamestop'}
+  // })
   return (
     <Grid
       container
