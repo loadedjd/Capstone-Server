@@ -13,6 +13,9 @@ const useStyles = makeStyles({
   root: {
     width: 300,
   },
+  media:{
+    height:130,
+  },
 });
 
 export default function ImgMediaCard(props: { img: string; title: string; desc: string; }) {
@@ -21,10 +24,10 @@ export default function ImgMediaCard(props: { img: string; title: string; desc: 
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
+          className={classes.media}
           component={'img'}
           image={props.img}
           alt="Article"
-          height={'130'}
         />
         <CardContent >
           <Typography gutterBottom variant="h6" color="textPrimary" component="h2">

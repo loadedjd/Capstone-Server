@@ -1,6 +1,12 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import ImgMediaCard from "./NewsCard";
+import gme  from './gme.jpg';
+import roblox  from './roblox.jpg';
+import stim  from './stim.webp';
+import WebIcon from '@material-ui/icons/Web';
+import axios from 'axios';
+// const articles = (await axios.get('localhost:3000/api/news', 'gamestop')).data
 
 function NewsBar() {
   return (
@@ -12,23 +18,33 @@ function NewsBar() {
       alignItems="center"
     >
       <Grid item xs={12}>
-        <Typography
-          variant={"h4"}
-          color={"secondary"}>
-          Watson Discovery News
-        </Typography>
+        <Grid
+          container
+          spacing={1}
+        >
+          <Grid item>
+            <WebIcon color={'secondary'} fontSize={"large"}/>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant={"h4"}
+              color={"secondary"}>
+               Watson Discovery News
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12}>
-        <ImgMediaCard img={"gme.jpg"} desc={"Despite enthusiastic " +
+        <ImgMediaCard img={gme} desc={"Despite enthusiastic " +
         "retail investors, intense market manipulation has lead GameStop to " +
         "fall yet again"} title={"GameStop Crashes (Again)"} />
       </Grid>
       <Grid item xs={12}>
-        <ImgMediaCard img={"roblox.jpg"} desc={"No, but their market share " +
+        <ImgMediaCard img={roblox} desc={"No, but their market share " +
         "sure is rising!"} title={"Is Roblox the Next Apple?"} />
       </Grid>
       <Grid item xs={12}>
-        <ImgMediaCard img={"stim.wbp"}
+        <ImgMediaCard img={stim}
                       desc={"Who could have predicted that stimulating the economy would " +
                       "stimulate the economy?"}
                       title={"BREAKING: Stimulus Sends Markets to the Moon"} />
@@ -38,6 +54,3 @@ function NewsBar() {
 }
 
 export default NewsBar;
-
-// const articles = (await axios.get('localhost:3000/api/news', 'gamestop')).data
-// const news_element = <news stock='GameStop' articles='GameStop Stock Surging'/>;
