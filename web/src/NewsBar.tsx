@@ -5,9 +5,19 @@ import gme  from './gme.jpg';
 import roblox  from './roblox.jpg';
 import stim  from './stim.webp';
 import WebIcon from '@material-ui/icons/Web';
-import axios from 'axios';
-
+import axios, { AxiosRequestConfig } from "axios";
+export async function useAxios(query: string) {
+  const config: AxiosRequestConfig = {
+    headers: {
+      query: query,
+    }
+  }
+  const response = await axios.get('localhost:3000', config)
+  return response.data
+}
 async function NewsBar() {
+  const gamestop_query = useAxios('gamestop')
+  
   //  axios({ method:'get', url:'localhost:3000/api/news', responseType: 'json', headers: {'query': 'gamestop'}
   // })
   return (
