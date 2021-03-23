@@ -4,18 +4,18 @@ import { Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
 import ImgMediaCard from "./StockCard";
 
-const api = axios.create({
-  baseURL: 'https://localhost:3000/api/stock'
-})
+// const api = axios.create({
+//   baseURL: 'https://localhost:3000/api/stock'
+// })
 
 export default class StockDisplay extends React.Component {
   
-  constructor(){
-    super();
-    api.get('/').then(res =>{
-      console.log(res.data)
-    })
-  }
+  // constructor(){
+  //   super();
+  //   api.get('/').then(res =>{
+  //     console.log(res.data)
+  //   })
+  // }
 
   render() {
     return (
