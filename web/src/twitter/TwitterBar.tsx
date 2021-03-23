@@ -11,7 +11,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
 import axios, { AxiosRequestConfig } from "axios";
+
 export async function useAxios(query: string) {
+
     const config: AxiosRequestConfig = {
         headers: {
             query: query,
@@ -23,7 +25,8 @@ export async function useAxios(query: string) {
 
 
 function TwitterBar() {
-
+    const data = useAxios('gamestop')
+    console.log(data)
     return (
         <Grid
             container
