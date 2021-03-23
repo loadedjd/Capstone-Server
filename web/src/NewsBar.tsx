@@ -6,7 +6,6 @@ import roblox from './roblox.jpg';
 import stim from './stim.webp';
 import WebIcon from '@material-ui/icons/Web';
 import axios, { AxiosRequestConfig } from 'axios';
-import { TwitterSummaryCard } from './TwitterBar';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
