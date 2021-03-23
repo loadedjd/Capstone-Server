@@ -1,11 +1,15 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, rgbToHex, Typography } from "@material-ui/core";
 import TwitterIcon from '@material-ui/icons/Twitter';
+import upArrow from "./uparrow.png";
+import downArrow from "./downarrow.png";
+import neutralArrow from "./neutralarrow.png";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+
 import axios, { AxiosRequestConfig } from "axios";
 export async function useAxios(query: string) {
     const config: AxiosRequestConfig = {
@@ -46,7 +50,7 @@ function TwitterBar() {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <TwitterSummaryCard ticker={"$TSLA"} average={76} />
+                <TwitterSummaryCard ticker={"$TSLA"} average={62} />
             </Grid>
             <Grid item xs={12}>
                 <TweetCard tweet={"\"Pulled the trigger tonight for my $TSLA Model Y on reserve. My first new car in 6 years. I'm happy.\""}
@@ -61,7 +65,7 @@ function TwitterBar() {
             <Grid item xs={12}>
                 <TweetCard tweet={"\"$TSLA Looks like support held, premarket gap up. Watch for potential sell off at market opening.\""}
                     author={"@TextsubX"}
-                    score={79} />
+                    score={36} />
             </Grid>
         </Grid>
     );
@@ -70,7 +74,11 @@ function TwitterBar() {
 const useStyles = makeStyles({
     root: {
         width: 300,
-    }
+    },
+    media: {
+        width: 50,
+        marginLeft: -10,
+    },
 });
 
 const PositiveColorTypography = withStyles({
@@ -79,8 +87,32 @@ const PositiveColorTypography = withStyles({
     }
 })(Typography);
 
+const NeutralColorTypography = withStyles({
+    root: {
+        color: "#84C3D3"
+    }
+})(Typography);
+
+const NegativeColorTypography = withStyles({
+    root: {
+        color: "#FF0827"
+    }
+})(Typography);
+
 export function TweetCard(props: { tweet: string; author: string; score: number; }) {
     const classes = useStyles();
+
+    var TextColor;
+    if (props.score > 60) {
+        TextColor = PositiveColorTypography;
+    }
+    else if (props.score > 40) {
+        TextColor = NeutralColorTypography;
+    }
+    else {
+        TextColor = NegativeColorTypography;
+    }
+
     return (
         <Card className={classes.root}>
             <CardActionArea>
@@ -104,9 +136,9 @@ export function TweetCard(props: { tweet: string; author: string; score: number;
                         </Grid>
                         <Grid item>
                             <CardContent>
-                                <PositiveColorTypography variant="h5" color="primary">
+                                <TextColor variant="h5">
                                     {props.score}
-                                </PositiveColorTypography>
+                                </TextColor>
                             </CardContent>
                         </Grid>
                     </Grid>
@@ -118,32 +150,70 @@ export function TweetCard(props: { tweet: string; author: string; score: number;
 
 export function TwitterSummaryCard(props: { ticker: string; average: number; }) {
     const classes = useStyles();
+
+    var summaryImage;
+    var TextColor;
+    if (props.average > 60) {
+        summaryImage = upArrow;
+        TextColor = PositiveColorTypography;
+    }
+    else if (props.average > 40) {
+        summaryImage = neutralArrow;
+        TextColor = NeutralColorTypography;
+    }
+    else {
+        summaryImage = downArrow;
+        TextColor = NegativeColorTypography;
+    }
+
     return (
         <Card className={classes.root}>
             <CardActionArea>
-                <Grid
-                    container
-                    spacing={2}
-                    direction="column"
-                    justify="flex-start"
-                    alignItems="center"
-                >
-                    <Grid item>
-                        <CardContent>
+                <CardContent>
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                    >
+
+                        <Grid item>
                             <Typography variant="h4" color="textPrimary" component="h4">
                                 {props.ticker}
                             </Typography>
-                            <PositiveColorTypography variant="h4" align="center" color="primary">
-                                {props.average}
-                            </PositiveColorTypography>
+                        </Grid>
+
+                        <Grid item style={{marginLeft: "15%"}}>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems="center"
+                            >
+                                <TextColor variant="h4" align="center">
+                                    {props.average}
+
+                                </TextColor>
+                                <CardMedia
+                                    className={classes.media}
+                                    component={'img'}
+                                    image={summaryImage}
+                                    alt="Summary Icon"
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Grid item>
                             <Typography variant="body1" color="textSecondary" component="p">
                                 {"WEEKLY SCORE"}
                             </Typography>
-                        </CardContent>
+                        </Grid>
+
                     </Grid>
-                </Grid>
-            </CardActionArea>
-        </Card>
+                </CardContent>
+            </CardActionArea >
+        </Card >
     );
 }
 export default TwitterBar;
