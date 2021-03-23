@@ -60,7 +60,7 @@ function NewsBar() {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <NewsSummaryCard ticker={'$TSLA'} average={95} />
+        <NewsSummaryCard ticker={'$TSLA'} average={96} />
       </Grid>
       <Grid item xs={12}>
         <ImgMediaCard
@@ -71,13 +71,15 @@ function NewsBar() {
             'fall yet again'
           }
           title={'GameStop Crashes (Again)'}
+          score={35}
         />
       </Grid>
       <Grid item xs={12}>
         <ImgMediaCard
           img={roblox}
-          desc={'No, but their market share ' + 'sure is rising!'}
+          desc={'No, but their market share sure is rising!'}
           title={'Is Roblox the Next Apple?'}
+          score={74}
         />
       </Grid>
       <Grid item xs={12}>
@@ -88,6 +90,7 @@ function NewsBar() {
             'stimulate the economy?'
           }
           title={'BREAKING: Stimulus Sends Markets to the Moon'}
+          score={64}
         />
       </Grid>
     </Grid>
