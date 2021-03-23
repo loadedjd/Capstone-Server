@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
 import ImgMediaCard from "./StockCard";
+import StockGraph from "./StockGraph"
 
 // const api = axios.create({
 //   baseURL: 'https://localhost:3000/api/stock'
@@ -35,7 +36,8 @@ export default class StockDisplay extends React.Component {
         </Typography>
       </Grid>
       <Grid item>
-        <ImgMediaCard img={'gme.jpg'} desc={''} title={'Graph'}/>
+        <StockGraph/>
+        {/* <ImgMediaCard img={'gme.jpg'} desc={''} title={'Graph'}/> */}
       </Grid>
 
       <Grid item>
@@ -45,9 +47,8 @@ export default class StockDisplay extends React.Component {
       <Grid item>
         <ImgMediaCard img={'stim.wbp'} desc={""} title={'Recommendations From Top Firms'}/>
       </Grid>
-      
       </Grid>
-
+      
       </div>
     )
   }
