@@ -15,8 +15,9 @@ export async function useAxios(query: string) {
   const response = await axios.get('localhost:3000', config)
   return response.data
 }
-async function NewsBar() {
-  const gamestop_query = useAxios('gamestop')
+
+function NewsBar() {
+  //const gamestop_query = useAxios('gamestop')
   
   //  axios({ method:'get', url:'localhost:3000/api/news', responseType: 'json', headers: {'query': 'gamestop'}
   // })

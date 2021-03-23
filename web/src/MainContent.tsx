@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
 import NewsBar from "./NewsBar"
+import TwitterBar from "./TwitterBar"
 
 import StockDisplay from "./Stock.Component/display"
 import { findByLabelText } from '@testing-library/dom';
@@ -19,7 +20,6 @@ const useStyles = makeStyles(theme => ({
   content: {
     backgroundColor: theme.palette.background.default,
     flexGrow: 1,
-    height:'74vh',
     padding: theme.spacing(3),
   },
   fullWidth: {
@@ -52,7 +52,7 @@ function MainContent() {
                 <StockDisplay/>
               </Grid>
               <Grid item>
-                <NewsBar/>
+                <TwitterBar/>
               </Grid>
             </Grid>
             
