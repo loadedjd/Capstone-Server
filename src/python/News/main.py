@@ -30,7 +30,7 @@ def setup():
 # Return Value: json dump of all returned from query (May change to be more specifically formated
 def queryStocks(discovery_):
     if len(sys.argv) < 3:  # Error check for arguments needed
-        print("ERROR: Invalid Arguments. Use format: 'WatsonNews.py query {query} {time} {count}. Time and Count "
+        print("ERROR: Invalid Arguments. Use format: 'main.py query {query} {time} {count}. Time and Count "
               "optional")
     else:
         discovery = discovery_  # Init discovery with passed in object
@@ -50,15 +50,20 @@ def queryStocks(discovery_):
 
         response = discovery.query(environment_id=en_id, collection_id='news-en', query=query,
                                    natural_language_query=natural_language_query, passages=False,
-                                   count=10, highlight=True, deduplicate=True, filter=filterSearch)  # query Discovery
-        print(json.dumps(response.result['results']))  # Print response to stdout
+                                   count=1, highlight=True,
+                                   deduplicate=True, filter=filterSearch)
+        # query Discovery
+        # print(json.dumps(response.result['results']))  # Print response to
+        # stdout
+        print(response)  # Print response to
+        # stdout
 
 
 # Run query on Watson News
 # Return Value: json dump of top 10 most recent articles about the stock market
 def headlines(discovery_):
-    if len(sys.argv) < 3:  # Error check for arguments needed
-        print("ERROR: Invalid Arguments. Use format: 'WatsonNews.py headlines {query}")
+    if len(sys.argv) < 2:  # Error check for arguments needed
+        print("ERROR: Invalid Arguments. Use format: 'main.py headlines")
     else:
         print("Headlines")
         discovery = discovery_
@@ -66,7 +71,7 @@ def headlines(discovery_):
         en_id = "system"
         query = "Stocks"
         natural_language_query = query
-        qty = 5  # Number of results to return
+        qty = 1  # Number of results to return
         filterSearch = "crawl_date>=now-1day"
 
         print("Showing top articles for Stocks in the last day")
