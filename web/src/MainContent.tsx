@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
 import NewsBar from "./NewsBar"
 import TwitterBar from "./twitter/TwitterBar"
+import SearchBar from "./SearchBar"
 
 import StockDisplay from "./Stock.Component/display"
 import { findByLabelText } from '@testing-library/dom';
@@ -38,6 +39,7 @@ function MainContent() {
           </div>
           
           <div className={classes.content}>
+            <SearchBar/>
             <Grid
               container
               spacing={10}

@@ -40,22 +40,13 @@ function TopBar() {
                   <ShowChartIcon />
               </IconButton>
               <MenuItem>
-                  <Typography variant={'h6'} className={classes.title}>
-                      Home
+                  <Typography
+                    variant={'h6'}
+                    color={'secondary'}
+                  >
+                    Trading made Elementary
                   </Typography>
               </MenuItem>
-              <MenuItem>
-                  <Typography variant={'h6'} className={classes.title}>
-                      My Stocks
-                  </Typography>
-              </MenuItem>
-              <MenuItem>
-                <Typography variant={'h6'} className={classes.title}>
-                      About
-                  </Typography>
-                </MenuItem>
-                <Button color="inherit">Login</Button>
-                <Button color="inherit">Sign Up</Button>
           </Toolbar>
       </AppBar>
     )
