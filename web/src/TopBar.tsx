@@ -41,8 +41,8 @@ function TopBar() {
               </IconButton>
               <MenuItem>
                   <Typography
-                    variant={'h6'}
-                    color={'secondary'}
+                    variant={'h4'}
+                    color={'primary'}
                   >
                     Trading made Elementary
                   </Typography>

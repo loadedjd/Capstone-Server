@@ -34,32 +34,39 @@ function MainContent() {
     return (
       <main className={classes.fullWidth}>
           <div className={classes.toolbar} />
-          <div className={classes.title}>
-            <Typography variant={'h3'} color={'secondary'} >Trading made Elementary</Typography>
-          </div>
           
           <div className={classes.content}>
-            <SearchBar/>
             <Grid
               container
-              spacing={10}
-              direction={"row"}
-              justify={"space-around"}
-              alignItems={"flex-start"}
-            >
+              spacing = {2}
+              direction={"column"}
+              justify={"flex-start"}
+              alignItems={"center"}
+              >
               <Grid item>
-                <NewsBar/>
+                <SearchBar/>
               </Grid>
               <Grid item>
-                <StockDisplay/>
-              </Grid>
-              <Grid item>
-                <TwitterBar/>
+                <Grid
+                  container
+                  spacing={10}
+                  direction={"row"}
+                  justify={"space-around"}
+                  alignItems={"flex-start"}
+                >
+                  <Grid item>
+                    <NewsBar/>
+                  </Grid>
+                  <Grid item>
+                    <StockDisplay/>
+                  </Grid>
+                  <Grid item>
+                    <TwitterBar/>
+                  </Grid>
               </Grid>
             </Grid>
-            
+            </Grid>
           </div>
-          
       </main>
     );
 }
