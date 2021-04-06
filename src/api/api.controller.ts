@@ -27,7 +27,7 @@ export class ApiController {
   }
 
   @Get('news')
-  async getSentiment(@Req() req: Request, @Res() res: Response) {
+  async getNews(@Req() req: Request, @Res() res: Response) {
     const ticker = req.headers['ticker'] as string;
 
     // Pass ticker to python service, await the result
@@ -48,7 +48,7 @@ export class ApiController {
   }
 
   @Get('sentiment')
-  async getNews(@Req() req: Request, @Res() res: Response) {
+  async getSentiment(@Req() req: Request, @Res() res: Response) {
     const ticker = req.headers['ticker'] as string;
 
     // Pass ticker to python service, await the result
@@ -61,7 +61,7 @@ export class ApiController {
       },
     );
 
-    const data = { service: 'news', ticker };
+    const data = { service: 'sentiment', ticker };
 
     return data;
   }
