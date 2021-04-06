@@ -34,19 +34,7 @@ function MainContent() {
     return (
       <main className={classes.fullWidth}>
           <div className={classes.toolbar} />
-          
           <div className={classes.content}>
-            <Grid
-              container
-              spacing = {2}
-              direction={"column"}
-              justify={"flex-start"}
-              alignItems={"center"}
-              >
-              <Grid item>
-                <SearchBar/>
-              </Grid>
-              <Grid item>
                 <Grid
                   container
                   spacing={10}
@@ -64,8 +52,6 @@ function MainContent() {
                     <TwitterBar/>
                   </Grid>
               </Grid>
-            </Grid>
-            </Grid>
           </div>
       </main>
     );

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TopBar from "./TopBar";
 import MainContent from "./MainContent";
 import Footer from "./Footer";
+import SearchBar from "./SearchBar"
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -15,6 +16,7 @@ function Home() {
     return(
       <div className={classes.root}>
           <TopBar />
+          <SearchBar />
           <MainContent />
           <Footer />
       </div>

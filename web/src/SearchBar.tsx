@@ -2,10 +2,19 @@
 import React from 'react';
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { Grid } from '@material-ui/core';
 
 export default function SearchBar() {
   return (
-    <div style={{ width: 600 }}>
+    <Grid
+      container
+      spacing={3}
+      direction={"row"}
+      justify={"center"}
+      alignItems={"center"}
+    >
+      <Grid item>
+        <div style={{ width: 600 }}>
       <Autocomplete
         id="searchbar"
         size={"medium"}
@@ -17,6 +26,9 @@ export default function SearchBar() {
         )}
       />
     </div>
+      </Grid>
+
+    </Grid>
   );
 }
 
