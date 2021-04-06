@@ -6,14 +6,6 @@ import { Grid } from '@material-ui/core';
 
 export default function SearchBar() {
   return (
-    <Grid
-      container
-      spacing={3}
-      direction={"row"}
-      justify={"center"}
-      alignItems={"center"}
-    >
-      <Grid item>
         <div style={{ width: 600 }}>
       <Autocomplete
         id="searchbar"
@@ -26,9 +18,6 @@ export default function SearchBar() {
         )}
       />
     </div>
-      </Grid>
-
-    </Grid>
   );
 }
 
