@@ -11,14 +11,15 @@ def create_twitter_url(ticker):
     handle = ticker
     max_results = 10
     mrf = "max_results={}".format(max_results)
-    q = "query=from:{}".format(handle)
-    url = "https://api.twitter.com/2/tweets/search/recent?{}&{}".format(
-        mrf, q
+    q = "query={}".format(handle)
+    expan = "expansions=author_id&user.fields=username"
+    url = "https://api.twitter.com/2/tweets/search/recent?{}&{}&{}".format(
+        mrf, q, expan
     )
     return url
 
 def process_yaml():
-    with open("src/python/Sentiment/config.yaml") as file:
+    with open("./config.yaml") as file:
         return yaml.safe_load(file)
 
 def create_bearer_token(data):
@@ -69,17 +70,22 @@ def main():
     data = process_yaml()
     bearer_token = create_bearer_token(data)
     res_json = twitter_auth_and_connect(bearer_token, url)
-    sentiment_url, subscription_key = connect_to_azure(data)
-    headers = azure_header(subscription_key)
-    document_format = create_document_format(res_json)
-    sentiments = sentiment_scores(headers, sentiment_url, document_format)
+
+    print(json.dumps(res_json, indent=4))
+
+    #sentiment_url, subscription_key = connect_to_azure(data)
+    #headers = azure_header(subscription_key)
+    #document_format = create_document_format(res_json)
+    #sentiments = sentiment_scores(headers, sentiment_url, document_format)
 
 
     #week_score = mean_score(sentiments)
     #print("Mean sentiment score: " + str(week_score))
     #week_logic(week_score)
-    
-    print(json.dumps(sentiments))
+
+    # with open('tweets_test.json') as json_file:
+    #     data = json.load(json_file)
+    #     print(json.dumps(data))
     
 
 if __name__ == "__main__":
