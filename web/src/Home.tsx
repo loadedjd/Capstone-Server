@@ -16,7 +16,6 @@ function Home() {
     return(
       <div className={classes.root}>
           <TopBar />
-          <SearchBar />
           <MainContent />
           <Footer />
       </div>

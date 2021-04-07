@@ -1,23 +1,48 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
-import TextField, { TextFieldProps } from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
 import { Grid } from '@material-ui/core';
+const drawerWidth = 240;
+
+const useStyles = makeStyles(theme => ({
+  searchbar: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    marginLeft:960,
+    width:640,
+    backgroundColor: theme.palette.background.default
+  }
+}));
 
 export default function SearchBar() {
+  const classes = useStyles();
   return (
-        <div style={{ width: 600 }}>
-      <Autocomplete
-        id="searchbar"
-        size={"medium"}
-        freeSolo
-        options={top10Stocks.map((option) => option.title)}
-        autoHighlight={true}
-        renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
-          <TextField {...params} label="Search a stock" margin="normal" variant="outlined" />
-        )}
-      />
-    </div>
+    <Grid
+      container
+      spacing={1}
+      direction={"column"}
+      justify={"flex-start"}
+      alignItems={"flex-start"}
+      >
+      <Grid item>
+        <div className={classes.searchbar}>
+         <Autocomplete
+            id="searchbar"
+            size={"medium"}
+            freeSolo
+            options={top10Stocks.map((option) => option.title)}
+            autoHighlight={true}
+            renderInput={(params) => (
+              <TextField {...params} label="Search a stock" margin="normal" variant="outlined" />
+            )}
+          />
+     </div>
+      </Grid>
+    </Grid>
   );
 }
 

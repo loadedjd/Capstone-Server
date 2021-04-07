@@ -6,21 +6,14 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    top: 'auto',
-    bottom: 0,
-    width: `calc(100%)`,
-    marginLeft: drawerWidth,
-    backgroundColor: "#000000"
+    top:'calc(95%)',
+    padding: theme.spacing(3),
+    backgroundColor: theme.palette.background.default
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
+  root: {
     flexGrow: 1,
-    marginLeft: 10,
   },
   footer: {
-    marginLeft: 20,
     fontSize: 17,
     color:'textPrimary'
   },
@@ -28,12 +21,14 @@ const useStyles = makeStyles(theme => ({
 function Footer() {
   const classes = useStyles();
     return(
-     <AppBar position={'fixed'} className={classes.appBar}>
-         <Typography variant={'h6'} className={classes.footer} color={'textPrimary'}>
-             Ajay Kirtikar, Andrew Sanchez, Austin Rogers, Islam Talhi,
-           Jared Williams 2021
-         </Typography>
-     </AppBar>
+      <div className={classes.root}>
+        <AppBar position={'fixed'} className={classes.appBar}>
+             <Typography variant={'h6'} className={classes.footer} color={'textPrimary'}>
+                 Ajay Kirtikar, Andrew Sanchez, Austin Rogers, Islam Talhi,
+               Jared Williams 2021
+             </Typography>
+         </AppBar>
+      </div>
     );
 }
 
