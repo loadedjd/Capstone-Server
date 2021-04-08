@@ -13,20 +13,10 @@ import { findByLabelText } from '@testing-library/dom';
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
 
-  title: {
-    flexGrow: 1,
-    backgroundColor: "#000000",
-    padding: theme.spacing(3),
-  },
-  content: {
-    backgroundColor: theme.palette.background.default,
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
   fullWidth: {
-    width: '100%',
-    spacing: 0,
-    justify: 'space-around'
+    width: 'calc(100%)',
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(1)
   },
 }));
 function MainContent() {
@@ -34,14 +24,12 @@ function MainContent() {
     return (
       <main className={classes.fullWidth}>
           <div className={classes.toolbar} />
-          
-          <div className={classes.content}>
             <Grid
               container
-              spacing = {2}
+              spacing={1}
               direction={"column"}
-              justify={"flex-start"}
-              alignItems={"center"}
+              justify={"center"}
+              alignItems={"stretch"}
               >
               <Grid item>
                 <SearchBar/>
@@ -49,9 +37,9 @@ function MainContent() {
               <Grid item>
                 <Grid
                   container
-                  spacing={10}
+                  spacing={0}
                   direction={"row"}
-                  justify={"space-around"}
+                  justify={"space-evenly"}
                   alignItems={"flex-start"}
                 >
                   <Grid item>
@@ -63,10 +51,9 @@ function MainContent() {
                   <Grid item>
                     <TwitterBar/>
                   </Grid>
+                </Grid>
               </Grid>
             </Grid>
-            </Grid>
-          </div>
       </main>
     );
 }

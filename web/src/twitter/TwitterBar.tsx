@@ -9,6 +9,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import jsonTest from './tweets_test.json'
 
 import axios, { AxiosRequestConfig } from "axios";
 
@@ -19,14 +20,20 @@ export async function useAxios(query: string) {
             query: query,
         }
     }
-    const response = await axios.get('localhost:3000', config)
+    const response = await axios.get('localhost:3000/api/sentiment', config)
     return response.data
 }
 
 
 function TwitterBar() {
-    const data = useAxios('gamestop')
-    console.log(data)
+    const data = jsonTest;//useAxios('tsla')
+    console.log(data["data"][0]["author"])
+    var score_sum = 0;
+    for (var i = 0; i < data["data"].length; i++) {
+        score_sum += parseInt(data["data"][i]["score"]);
+    }
+    var average = Math.round(score_sum / data["data"].length);
+
     return (
         <Grid
             container
@@ -53,22 +60,37 @@ function TwitterBar() {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <TwitterSummaryCard ticker={"$TSLA"} average={62} />
+                <TwitterSummaryCard ticker={"$TSLA"} average={average} />
             </Grid>
             <Grid item xs={12}>
-                <TweetCard tweet={"\"Pulled the trigger tonight for my $TSLA Model Y on reserve. My first new car in 6 years. I'm happy.\""}
-                    author={"@HeartDocTesla"}
-                    score={99} />
+                <TweetCard tweet={"\"" + data["data"][0]["text"] + "\""}
+                    author={"@" + data["data"][0]["author"]}
+                    score={parseInt(data["data"][0]["score"])}
+                    url={"https://twitter.com/username/status/" + data["data"][0]["id"]} />
             </Grid>
             <Grid item xs={12}>
-                <TweetCard tweet={"\"Hopefully everyone took this advise the last couple of weeks when stocks were down. So much opportunity in the near future $GME $AMC $BTC $TSLA\""}
-                    author={"@DayTraderJay2"}
-                    score={52} />
+                <TweetCard tweet={"\"" + data["data"][1]["text"] + "\""}
+                    author={"@" + data["data"][1]["author"]}
+                    score={parseInt(data["data"][1]["score"])}
+                    url={"https://twitter.com/username/status/" + data["data"][1]["id"]}  />
             </Grid>
             <Grid item xs={12}>
-                <TweetCard tweet={"\"$TSLA Looks like support held, premarket gap up. Watch for potential sell off at market opening.\""}
-                    author={"@TextsubX"}
-                    score={36} />
+            <TweetCard tweet={"\"" + data["data"][2]["text"] + "\""}
+                    author={"@" + data["data"][2]["author"]}
+                    score={parseInt(data["data"][2]["score"])}
+                    url={"https://twitter.com/username/status/" + data["data"][2]["id"]}  />
+            </Grid>
+            <Grid item xs={12}>
+            <TweetCard tweet={"\"" + data["data"][3]["text"] + "\""}
+                    author={"@" + data["data"][3]["author"]}
+                    score={parseInt(data["data"][3]["score"])}
+                    url={"https://twitter.com/username/status/" + data["data"][3]["id"]}  />
+            </Grid>
+            <Grid item xs={12}>
+            <TweetCard tweet={"\"" + data["data"][4]["text"] + "\""}
+                    author={"@" + data["data"][4]["author"]}
+                    score={parseInt(data["data"][4]["score"])}
+                    url={"https://twitter.com/username/status/" + data["data"][4]["id"]}  />
             </Grid>
         </Grid>
     );
@@ -102,7 +124,7 @@ const NegativeColorTypography = withStyles({
     }
 })(Typography);
 
-export function TweetCard(props: { tweet: string; author: string; score: number; }) {
+export function TweetCard(props: { tweet: string; author: string; score: number; url: string; }) {
     const classes = useStyles();
 
     var TextColor;
@@ -119,7 +141,7 @@ export function TweetCard(props: { tweet: string; author: string; score: number;
     return (
         <Card className={classes.root}>
             <CardActionArea>
-                <a href={"https://twitter.com/HeartDocTesla/status/1369871593057435650"} target="_blank" style={{ textDecoration: 'none' }}>
+                <a href={props.url} target="_blank" style={{ textDecoration: 'none' }}>
                     <Grid
                         container
                         spacing={3}

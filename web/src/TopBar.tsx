@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { Button, MenuItem } from "@material-ui/core";
 import ShowChartIcon from '@material-ui/icons/ShowChart';
-const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -27,7 +26,7 @@ function TopBar() {
       <AppBar position='fixed' className={classes.appBar} color={"primary"}>
           <Toolbar>
             <MenuItem>
-                  <Typography variant={'h4'} className={classes.title}>
+                  <Typography variant={'h3'} className={classes.title}>
                       WatsonWatch
                   </Typography>
               </MenuItem>
@@ -42,9 +41,9 @@ function TopBar() {
               <MenuItem>
                   <Typography
                     variant={'h4'}
-                    color={'primary'}
+                    className={classes.title}
                   >
-                    Trading made Elementary
+                    Trading Made Elementary
                   </Typography>
               </MenuItem>
           </Toolbar>

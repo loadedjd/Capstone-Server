@@ -22,11 +22,34 @@ const PositiveColorTypography = withStyles({
     }
 })(Typography);
 
-export default function ImgMediaCard(props: { img: string; title: string; desc: string; score: number; }) {
+const NeutralColorTypography = withStyles({
+    root: {
+        color: "#84C3D3"
+    }
+})(Typography);
+
+const NegativeColorTypography = withStyles({
+    root: {
+        color: "#FF0827"
+    }
+})(Typography);
+
+export default function ImgMediaCard(props: { img: string; title: string; desc: string; score: number; link: string }) {
   const classes = useStyles();
+      var TextColor;
+    if (props.score > 60) {
+        TextColor = PositiveColorTypography;
+    }
+    else if (props.score > 40) {
+        TextColor = NeutralColorTypography;
+    }
+    else {
+        TextColor = NegativeColorTypography;
+    }
   return (
     <Card className={classes.root}>
           <CardActionArea>
+            <a href={props.link} target="_blank" style={{ textDecoration: 'none' }}>
             <CardMedia
               className={classes.media}
               component={'img'}
@@ -42,19 +65,20 @@ export default function ImgMediaCard(props: { img: string; title: string; desc: 
               >
               <Grid item>
                 <CardContent >
-                  <Typography gutterBottom variant="h6" color="textPrimary" component="h2">
+                  <Typography gutterBottom variant="body1" color="textPrimary" component="h2">
                     {props.title}
                   </Typography>
                 </CardContent>
               </Grid>
               <Grid item>
                 <CardContent>
-                  <PositiveColorTypography variant={'h5'} color={'primary'}>
+                  <TextColor variant={'h5'} color={'primary'}>
                     {props.score}
-                  </PositiveColorTypography>
+                  </TextColor>
                 </CardContent>
               </Grid>
             </Grid>
+            </a>
           </CardActionArea>
 
     </Card>
