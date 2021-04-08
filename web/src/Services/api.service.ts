@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { StockResponse } from '../models';
+import { SentimentResponse, StockResponse } from '../models';
 
 const apiUrl = 'http://localhost:3000/api';
 
@@ -16,14 +16,15 @@ export async function getStock(ticker: string): Promise<StockResponse> {
   return data;
 }
 
-export async function getSentiment(ticker: string): Promise<object> {
+export async function getSentiment(ticker: string): Promise<SentimentResponse> {
   const config: AxiosRequestConfig = {
     headers: {
       ticker: ticker,
     },
   };
 
-  const data = (await axios.get(`${apiUrl}/sentiment`, config)).data;
+  const data = (await axios.get(`${apiUrl}/sentiment`, config))
+    .data as SentimentResponse;
 
   return data;
 }

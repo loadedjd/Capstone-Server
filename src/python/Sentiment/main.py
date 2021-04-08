@@ -5,6 +5,7 @@ import ast
 import sys
 import yaml
 import ssl
+import os
 
 
 def create_twitter_url(ticker):
@@ -19,7 +20,10 @@ def create_twitter_url(ticker):
     return url
 
 def process_yaml():
-    with open("./config.yaml") as file:
+
+    CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+
+    with open(CURR_DIR + "/config.yaml") as file:
         return yaml.safe_load(file)
 
 def create_bearer_token(data):
@@ -71,7 +75,7 @@ def main():
     bearer_token = create_bearer_token(data)
     res_json = twitter_auth_and_connect(bearer_token, url)
 
-    print(json.dumps(res_json, indent=4))
+    print(res_json)
 
     #sentiment_url, subscription_key = connect_to_azure(data)
     #headers = azure_header(subscription_key)

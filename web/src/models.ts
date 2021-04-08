@@ -8,3 +8,16 @@ export type StockData = {
 };
 
 export type NewsData = {};
+
+export type SentimentResponse = {
+  service: string;
+  data: SentimentData;
+};
+
+export type SentimentData = {
+  data: Tweet[];
+};
+
+export type Tweet = {
+  text: string;
+};
