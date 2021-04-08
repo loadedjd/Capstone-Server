@@ -4,6 +4,7 @@ import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import ImgMediaCard from './StockCard';
 import StockGraph from './StockGraph';
+import StockGraph_v2 from './StockGraph_v2'
 import { AppContext } from '../state';
 
 // const api = axios.create({
@@ -32,13 +33,13 @@ export const StockDisplay = () => {
           {/* <ImgMediaCard img={'gme.jpg'} desc={''} title={'Graph'}/> */}
         </Grid>
 
-        <Grid item>
+        {/* <Grid item>
           <ImgMediaCard
             img={'gme.jpg'}
             desc={''}
             title={'History of the Past 10 Years'}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid item>
           <ImgMediaCard
