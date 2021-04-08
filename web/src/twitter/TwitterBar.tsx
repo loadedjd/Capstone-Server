@@ -60,7 +60,7 @@ function TwitterBar() {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <TwitterSummaryCard ticker={"$TSLA"} average={average} />
+                <TwitterSummaryCard ticker={"$TSLA"} average={average} url={"https://twitter.com/search?q=" + data["ticker"]} />
             </Grid>
             <Grid item xs={12}>
                 <TweetCard tweet={"\"" + data["data"][0]["text"] + "\""}
@@ -72,25 +72,25 @@ function TwitterBar() {
                 <TweetCard tweet={"\"" + data["data"][1]["text"] + "\""}
                     author={"@" + data["data"][1]["author"]}
                     score={parseInt(data["data"][1]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][1]["id"]}  />
+                    url={"https://twitter.com/username/status/" + data["data"][1]["id"]} />
             </Grid>
             <Grid item xs={12}>
-            <TweetCard tweet={"\"" + data["data"][2]["text"] + "\""}
+                <TweetCard tweet={"\"" + data["data"][2]["text"] + "\""}
                     author={"@" + data["data"][2]["author"]}
                     score={parseInt(data["data"][2]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][2]["id"]}  />
+                    url={"https://twitter.com/username/status/" + data["data"][2]["id"]} />
             </Grid>
             <Grid item xs={12}>
-            <TweetCard tweet={"\"" + data["data"][3]["text"] + "\""}
+                <TweetCard tweet={"\"" + data["data"][3]["text"] + "\""}
                     author={"@" + data["data"][3]["author"]}
                     score={parseInt(data["data"][3]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][3]["id"]}  />
+                    url={"https://twitter.com/username/status/" + data["data"][3]["id"]} />
             </Grid>
             <Grid item xs={12}>
-            <TweetCard tweet={"\"" + data["data"][4]["text"] + "\""}
+                <TweetCard tweet={"\"" + data["data"][4]["text"] + "\""}
                     author={"@" + data["data"][4]["author"]}
                     score={parseInt(data["data"][4]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][4]["id"]}  />
+                    url={"https://twitter.com/username/status/" + data["data"][4]["id"]} />
             </Grid>
         </Grid>
     );
@@ -173,7 +173,7 @@ export function TweetCard(props: { tweet: string; author: string; score: number;
     );
 }
 
-export function TwitterSummaryCard(props: { ticker: string; average: number; }) {
+export function TwitterSummaryCard(props: { ticker: string; average: number; url: string }) {
     const classes = useStyles();
 
     var summaryImage;
@@ -194,49 +194,51 @@ export function TwitterSummaryCard(props: { ticker: string; average: number; }) 
     return (
         <Card className={classes.root}>
             <CardActionArea>
-                <CardContent>
-                    <Grid
-                        container
-                        spacing={0}
-                        direction="column"
-                        justify="center"
-                        alignItems="center"
-                    >
+                <a href={props.url} target="_blank" style={{ textDecoration: 'none' }}>
+                    <CardContent>
+                        <Grid
+                            container
+                            spacing={0}
+                            direction="column"
+                            justify="center"
+                            alignItems="center"
+                        >
 
-                        <Grid item>
-                            <Typography variant="h4" color="textPrimary" component="h4">
-                                {props.ticker}
-                            </Typography>
-                        </Grid>
-
-                        <Grid item style={{marginLeft: "15%"}}>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <TextColor variant="h4" align="center">
-                                    {props.average}
-
-                                </TextColor>
-                                <CardMedia
-                                    className={classes.media}
-                                    component={'img'}
-                                    image={summaryImage}
-                                    alt="Summary Icon"
-                                />
+                            <Grid item>
+                                <Typography variant="h4" color="textPrimary" component="h4">
+                                    {props.ticker}
+                                </Typography>
                             </Grid>
-                        </Grid>
 
-                        <Grid item>
-                            <Typography variant="body1" color="textSecondary" component="p">
-                                {"WEEKLY SCORE"}
-                            </Typography>
-                        </Grid>
+                            <Grid item style={{ marginLeft: "15%" }}>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="center"
+                                    alignItems="center"
+                                >
+                                    <TextColor variant="h4" align="center">
+                                        {props.average}
 
-                    </Grid>
-                </CardContent>
+                                    </TextColor>
+                                    <CardMedia
+                                        className={classes.media}
+                                        component={'img'}
+                                        image={summaryImage}
+                                        alt="Summary Icon"
+                                    />
+                                </Grid>
+                            </Grid>
+
+                            <Grid item>
+                                <Typography variant="body1" color="textSecondary" component="p">
+                                    {"WEEKLY SCORE"}
+                                </Typography>
+                            </Grid>
+
+                        </Grid>
+                    </CardContent>
+                </a>
             </CardActionArea >
         </Card >
     );
