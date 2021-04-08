@@ -30,23 +30,14 @@ export default function SearchBar() {
     >
       <Grid item>
         <div className={classes.searchbar}>
-          <Autocomplete
-            id="searchbar"
-            size={'medium'}
-            freeSolo
-            options={top10Stocks.map((option) => option.title)}
-            autoHighlight={true}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Search a stock"
-                margin="normal"
-                variant="outlined"
-                onChange={(event) => {
-                  appState?.setTicker(event.target.value);
-                }}
-              />
-            )}
+          <TextField
+            label="Search a stock"
+            margin="normal"
+            variant="outlined"
+            onChange={(event) => {
+              console.log(event.target.value);
+              appState?.setTicker(event.target.value);
+            }}
           />
         </div>
       </Grid>
