@@ -7,12 +7,16 @@ export type AppState = {
   ticker: string | undefined;
   stockData: StockData | undefined;
   setTicker: (ticker: string) => void;
+  display: boolean | undefined;
+  setDisplay: (display: boolean) => void;
+
 };
 
 export const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export function useAppState(): AppState {
   const [ticker, setTicker] = React.useState<string | undefined>('TSLA');
+  const [display, setDisplay] = React.useState<boolean | undefined>(false);
   const [stockData, setStockData] = React.useState<StockData | undefined>(
     undefined,
   );
@@ -29,6 +33,8 @@ export function useAppState(): AppState {
     ticker: ticker,
     stockData,
     setTicker,
+    display: display,
+    setDisplay,
   };
 }
 

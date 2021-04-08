@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { Button, MenuItem } from "@material-ui/core";
 import ShowChartIcon from '@material-ui/icons/ShowChart';
+import {AppContext} from './state';
+import { Slide } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -22,8 +24,10 @@ const useStyles = makeStyles(theme => ({
 
 function TopBar() {
     const classes = useStyles();
+    const appState = React.useContext(AppContext);
     return(
       <AppBar position='fixed' className={classes.appBar} color={"primary"}>
+          <Slide direction="left" in={true} timeout={1000} mountOnEnter unmountOnExit>
           <Toolbar>
             <MenuItem>
                   <Typography variant={'h3'} className={classes.title}>
@@ -47,6 +51,7 @@ function TopBar() {
                   </Typography>
               </MenuItem>
           </Toolbar>
+          </Slide>
       </AppBar>
     )
 }
