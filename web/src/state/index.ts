@@ -3,15 +3,17 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 export type AppState = {
   ticker: string | undefined;
+  setTicker: (ticker: string) => void;
 };
 
 export const AppContext = React.createContext<AppState | undefined>(undefined);
 
 export function useAppState(): AppState {
-  const [ticker, setTicker] = React.useState<string | undefined>(undefined);
+  const [ticker, setTicker] = React.useState<string | undefined>('TSLA');
 
   return {
     ticker: ticker,
+    setTicker,
   };
 }
 

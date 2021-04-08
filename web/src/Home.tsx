@@ -1,28 +1,29 @@
-import axios from 'axios';
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TopBar from "./TopBar";
-import MainContent from "./MainContent";
-import Footer from "./Footer";
-import SearchBar from "./SearchBar"
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-    },
+import TopBar from './TopBar';
+import MainContent from './MainContent';
+import Footer from './Footer';
+import { AppContext, useAppState } from './state';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
 }));
 
 function Home() {
-    const classes = useStyles();
-    return(
-      <div className={classes.root}>
-          <TopBar />
-          <MainContent />
-          <Footer />
-      </div>
-    );
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <AppContext.Provider value={useAppState()}>
+        <TopBar />
+        <MainContent />
+        <Footer />
+      </AppContext.Provider>
+    </div>
+  );
 }
 
-    export default Home;
+export default Home;
 
 // const articles = (await axios.get('localhost:3000/api/news', 'gamestop')).data
 // const news_element = <news stock='GameStop' articles='GameStop Stock Surging'/>;
