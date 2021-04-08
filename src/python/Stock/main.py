@@ -61,12 +61,17 @@ def main():
 
 
     # get stock info
-    info = stock.info
+    # info = stock.info
+    history = stock.history("1y")["Close"].to_numpy().tolist()
+    prices = {"prices": history}
+
+    print(json.dumps(prices))
+
     # different keys one can search for
     # print("\nINFO KEYS\n")
     # print(info.keys())
 
-    print (json.dumps(info))
+    # print (json.dumps(info))
 
     # print("\nSUMMARY\n")
     # print(info['longBusinessSummary'])

@@ -57,7 +57,7 @@ export class ApiController {
       [ticker],
       (err, results) => {
         console.log(err);
-        res.json({ service: 'news', data: JSON.parse(results[0]) }).send();
+        res.json({ service: 'news', data: results[0] }).send();
       },
     );
 
