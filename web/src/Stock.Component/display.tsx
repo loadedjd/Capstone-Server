@@ -29,7 +29,7 @@ export const StockDisplay = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <StockGraph />
+          <StockGraph_v2 />
           {/* <ImgMediaCard img={'gme.jpg'} desc={''} title={'Graph'}/> */}
         </Grid>
 
@@ -41,13 +41,13 @@ export const StockDisplay = () => {
           />
         </Grid> */}
 
-        <Grid item>
+        {/* <Grid item>
           <ImgMediaCard
             img={'stim.wbp'}
             desc={''}
             title={'Recommendations From Top Firms'}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );
