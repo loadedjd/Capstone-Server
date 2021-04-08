@@ -24,6 +24,17 @@ export async function useAxios(query: string) {
     return response.data
 }
 
+function MakeTwitterCard(i: number) {
+    const data = jsonTest;
+    return (
+        <Grid item xs={12}>
+            <TweetCard tweet={"\"" + data["data"][i]["text"] + "\""}
+                author={"@" + data["data"][i]["author"]}
+                score={parseInt(data["data"][i]["score"])}
+                url={"https://twitter.com/username/status/" + data["data"][i]["id"]} />
+        </Grid>
+    )
+}
 
 function TwitterBar() {
     const data = jsonTest;//useAxios('tsla')
@@ -33,6 +44,12 @@ function TwitterBar() {
         score_sum += parseInt(data["data"][i]["score"]);
     }
     var average = Math.round(score_sum / data["data"].length);
+
+    let TweetCards = []
+    for (let i=0; i < data["data"].length; i++) {
+        TweetCards.push(MakeTwitterCard(i));
+    }
+
 
     return (
         <Grid
@@ -62,36 +79,7 @@ function TwitterBar() {
             <Grid item xs={12}>
                 <TwitterSummaryCard ticker={"$TSLA"} average={average} url={"https://twitter.com/search?q=" + data["ticker"]} />
             </Grid>
-            <Grid item xs={12}>
-                <TweetCard tweet={"\"" + data["data"][0]["text"] + "\""}
-                    author={"@" + data["data"][0]["author"]}
-                    score={parseInt(data["data"][0]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][0]["id"]} />
-            </Grid>
-            <Grid item xs={12}>
-                <TweetCard tweet={"\"" + data["data"][1]["text"] + "\""}
-                    author={"@" + data["data"][1]["author"]}
-                    score={parseInt(data["data"][1]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][1]["id"]} />
-            </Grid>
-            <Grid item xs={12}>
-                <TweetCard tweet={"\"" + data["data"][2]["text"] + "\""}
-                    author={"@" + data["data"][2]["author"]}
-                    score={parseInt(data["data"][2]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][2]["id"]} />
-            </Grid>
-            <Grid item xs={12}>
-                <TweetCard tweet={"\"" + data["data"][3]["text"] + "\""}
-                    author={"@" + data["data"][3]["author"]}
-                    score={parseInt(data["data"][3]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][3]["id"]} />
-            </Grid>
-            <Grid item xs={12}>
-                <TweetCard tweet={"\"" + data["data"][4]["text"] + "\""}
-                    author={"@" + data["data"][4]["author"]}
-                    score={parseInt(data["data"][4]["score"])}
-                    url={"https://twitter.com/username/status/" + data["data"][4]["id"]} />
-            </Grid>
+            {TweetCards}
         </Grid>
     );
 }
