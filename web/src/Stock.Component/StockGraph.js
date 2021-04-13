@@ -2,9 +2,8 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 import { AppContext } from '../state';
 
-const Stock = () => {
-  const state = React.useContext(AppContext);
-
+export default function Stock() {
+  const appState = React.useContext(AppContext);
   return (
     <div>
       {/* <h1>Graph</h1> */}
@@ -25,7 +24,7 @@ const Stock = () => {
               'November',
               'December',
             ],
-            y: state?.stockData?.prices ?? [],
+            y: appState?.stockData?.prices ?? [],
             type: 'scatter',
             mode: 'lines+markers',
             marker: { color: 'red' },
@@ -37,4 +36,3 @@ const Stock = () => {
   );
 };
 
-export default Stock;
