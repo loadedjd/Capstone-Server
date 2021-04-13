@@ -21,7 +21,8 @@ export class ApiController {
           return err;
         }
 
-        res.json({ service: 'stock', data: data }).send();
+        res.json({ service: 'stock', data: data });
+        return;
       },
     );
   }
@@ -41,8 +42,9 @@ export class ApiController {
         if (err) {
           res.send(err);
         } else {
-          res.json({ service: 'News', data: JSON.parse(results) }).send();
+          res.json({ service: 'News', data: JSON.parse(results) });
         }
+        return;
       },
     );
   }
@@ -57,7 +59,8 @@ export class ApiController {
       [ticker],
       (err, results) => {
         console.log(err);
-        res.json({ service: 'news', data: results[0] }).send();
+        res.json({ service: 'news', data: results[0] });
+        return;
       },
     );
 
