@@ -65,41 +65,6 @@ def twitter_auth_and_connect(bearer_token, url):
     response = requests.request("GET", url, headers=headers)
     return response.json()
 
-def connect_to_azure(data):
-    azure_url = "https://week.cognitiveservices.azure.com/"
-    sentiment_url = "{}text/analytics/v2.1/sentiment".format(azure_url)
-    subscription_key = data["azure"]["subscription_key"]
-    return sentiment_url, subscription_key
-
-def azure_header(subscription_key):
-    return {"Ocp-Apim-Subscription-Key": subscription_key}
-
-def create_document_format(res_json):
-    data_only = res_json["data"]
-    doc_start = '"documents": {}'.format(data_only)
-    str_json = "{" + doc_start + "}"
-    dump_doc = json.dumps(str_json)
-    doc = json.loads(dump_doc)
-    return ast.literal_eval(doc)
-
-def sentiment_scores(headers, sentiment_url, document_format):
-    response = requests.post(sentiment_url, headers=headers, json=document_format)
-    return response.json()
-
-
-def mean_score(sentiments):
-    sentiment_df = pd.DataFrame(sentiments["documents"])
-    return sentiment_df["score"].mean()
-
-
-def week_logic(week_score):
-    if week_score >= 0.75:
-        print("Positive average.")
-    elif week_score >= 0.45:
-        print("Neutral average.")
-    else:
-        print("Negative average.")
-
 def GetAuthorNameFromID(data, id):
       for v in data:
           next_id = v['id']
@@ -112,9 +77,6 @@ def main():
     data = process_yaml()
     bearer_token = create_bearer_token(data)
     data = twitter_auth_and_connect(bearer_token, url)
-
-    #with open('test.json') as json_file:
-    #    data = json.load(json_file)
 
     f = open('tweet_classifier.pickle', 'rb')
     classifier = pickle.load(f)
