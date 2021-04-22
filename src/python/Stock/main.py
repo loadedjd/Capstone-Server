@@ -61,11 +61,12 @@ def main():
 
 
     # get stock info
-    # info = stock.info
-    history = stock.history("1y")["Close"].to_numpy().tolist()
-    prices = {"prices": history}
+    info = stock.info
+    # history = stock.history("1y")["Close"].to_numpy().tolist()
+    # prices = {"prices": history}
 
-    print(json.dumps(prices))
+    # print(json.dumps(prices))
+
 
     # different keys one can search for
     # print("\nINFO KEYS\n")
@@ -74,9 +75,9 @@ def main():
     # print (json.dumps(info))
 
     # print("\nSUMMARY\n")
-    # print(info['longBusinessSummary'])
-
-    
+    summary = info['longBusinessSummary']
+    description = {"description":summary}
+    print(json.dumps(description))
 
     # # get historical market data
     # hist = stock.history(period="max")
@@ -89,13 +90,24 @@ def main():
     # print(json.dumps(parsed, indent=4))
 
 
-    #  # show analysts recommendations
-    # print("\nRECCOMENDATIONS \n")
-    # print(stock.recommendations)
+     # show analysts recommendations
+    total = stock.recommendations
+    r = stock.recommendations.to_numpy()[-1]
+    firm = r[0]
+    toGrade = r[1]
+    fromGrade = r[2]
+    Action = r[3]
+    final = "FIRM: "+firm+", "+"TO GRADE: "+toGrade+", "+"FROM GRADE: "+fromGrade+", "+"ACTION: "+ Action
+
+    rec = {"recommendation": final}
+    # print("\Recommendation \n")
+    #print(json.dumps(rec))
+
 
     # # show next event (earnings, etc)
+    # earn = stock.calendar["Value"]
     # print("\nEARNINGS\n")
-    # print(stock.calendar)
+    # print(earn)
     
 
 

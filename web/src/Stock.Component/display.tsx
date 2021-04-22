@@ -7,6 +7,7 @@ import StockGraph from './StockGraph';
 import StockGraph_v2 from './StockGraph_v2'
 import { AppContext } from '../state';
 
+
 // const api = axios.create({
 //   baseURL: 'https://localhost:3000/api/stock'
 // })
@@ -33,20 +34,22 @@ export const StockDisplay = () => {
           {/* <ImgMediaCard img={'gme.jpg'} desc={''} title={'Graph'}/> */}
         </Grid>
 
-        {/* <Grid item>
+        <Grid item>
           <ImgMediaCard
             img={'gme.jpg'}
-            desc={''}
-            title={'History of the Past 10 Years'}
+            desc={appState?.stockData?.description}
+            title={'Stock Summary'}
           />
-        </Grid> */}
+          {console.log(appState?.stockData?.description)}
+        </Grid>
 
         {/* <Grid item>
           <ImgMediaCard
             img={'stim.wbp'}
-            desc={''}
-            title={'Recommendations From Top Firms'}
+            desc={""}
+            title={'Most Recent Firm Recommendation'}
           />
+          {console.log(appState?.stockData?.recommendation ?? [])}
         </Grid> */}
       </Grid>
     </div>

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       backgroundColor:'secondary',
-      maxWidth: 500,
+      maxWidth: 900,
     },
     header:{
       backgroundColor: 'secondary',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-export default function ImgMediaCard(props: { img: string; title: string; desc: string; }) {
+export default function ImgMediaCard(props: { img: string; title: string; desc: string|undefined|string[]; }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
@@ -38,11 +38,11 @@ export default function ImgMediaCard(props: { img: string; title: string; desc: 
   return (
     <Card className={classes.root}>
       <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
         title={props.title}
         subheader=""
       />

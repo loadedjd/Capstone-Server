@@ -4,7 +4,8 @@ export type StockResponse = {
 };
 
 export type StockData = {
-  prices: number[];
+  description: string;
+  //recommendation: string
 };
 
 export type NewsData = {};
