@@ -1,3 +1,12 @@
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.corpus import twitter_samples, stopwords
+from nltk.tag import pos_tag
+from nltk.tokenize import word_tokenize
+from nltk import FreqDist, classify, NaiveBayesClassifier
+
+import pickle
+import re, string, random
+
 import requests
 import pandas as pd
 import json
@@ -7,6 +16,28 @@ import yaml
 import ssl
 import os
 
+def remove_noise(tweet_tokens, stop_words = ()):
+
+    cleaned_tokens = []
+
+    for token, tag in pos_tag(tweet_tokens):
+        token = re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+#]|[!*\(\),]|'\
+                       '(?:%[0-9a-fA-F][0-9a-fA-F]))+','', token)
+        token = re.sub("(@[A-Za-z0-9_]+)","", token)
+
+        if tag.startswith("NN"):
+            pos = 'n'
+        elif tag.startswith('VB'):
+            pos = 'v'
+        else:
+            pos = 'a'
+
+        lemmatizer = WordNetLemmatizer()
+        token = lemmatizer.lemmatize(token, pos)
+
+        if len(token) > 0 and token not in string.punctuation and token.lower() not in stop_words:
+            cleaned_tokens.append(token.lower())
+    return cleaned_tokens
 
 def create_twitter_url(ticker):
     handle = ticker
@@ -68,30 +99,57 @@ def week_logic(week_score):
         print("Neutral average.")
     else:
         print("Negative average.")
-        
+
+def GetAuthorNameFromID(data, id):
+      for v in data:
+          next_id = v['id']
+          if (next_id == id):
+              return(v['username'])
+
 def main():
-    url = create_twitter_url(sys.argv[1])
+    ticker = sys.argv[1]
+    url = create_twitter_url(ticker)
     data = process_yaml()
     bearer_token = create_bearer_token(data)
-    res_json = twitter_auth_and_connect(bearer_token, url)
+    data = twitter_auth_and_connect(bearer_token, url)
 
-    print(res_json)
+    #with open('test.json') as json_file:
+    #    data = json.load(json_file)
 
-    #sentiment_url, subscription_key = connect_to_azure(data)
-    #headers = azure_header(subscription_key)
-    #document_format = create_document_format(res_json)
-    #sentiments = sentiment_scores(headers, sentiment_url, document_format)
+    f = open('tweet_classifier.pickle', 'rb')
+    classifier = pickle.load(f)
+    f.close()
 
+    output = {}
+    output['data'] = []
+    output['ticker'] = "$" + ticker.upper()
 
-    #week_score = mean_score(sentiments)
-    #print("Mean sentiment score: " + str(week_score))
-    #week_logic(week_score)
+    for v in data['data']:
+        tweet_text = v['text']
+        tweet_id = v['id']
 
-    # with open('tweets_test.json') as json_file:
-    #     data = json.load(json_file)
-    #     print(json.dumps(data))
+        author_id = v['author_id']
+        tweet_author = GetAuthorNameFromID(data['includes']['users'], author_id)
+
+        tokens = remove_noise(word_tokenize(tweet_text))
+
+        classification = classifier.classify(dict([token, True] for token in tokens))
+        tweet_score = "~"
+        if classification == "Positive":
+            tweet_score = "+"
+        elif classification == "Negative":
+            tweet_score = "-"
+
+        output['data'].append({
+            "author": tweet_author,
+            "score": tweet_score,
+            "id": tweet_id,
+            "text": tweet_text
+        })
+
+    with open('tweets_output.json', 'w') as outfile:
+        json.dump(output, outfile)
     
-
 if __name__ == "__main__":
 
     ssl._create_default_https_context = ssl._create_unverified_context

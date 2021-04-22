@@ -9,7 +9,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import jsonTest from './tweets_test.json'
+import jsonTest from './tweets_output.json'
 
 import axios, { AxiosRequestConfig } from "axios";
 
@@ -21,7 +21,7 @@ export async function useAxios(query: string) {
         }
     }
     const response = await axios.get('localhost:3000/api/sentiment', config)
-    return response.data
+    return response
 }
 
 function MakeTwitterCard(i: number) {
@@ -30,20 +30,29 @@ function MakeTwitterCard(i: number) {
         <Grid item xs={12}>
             <TweetCard tweet={"\"" + data["data"][i]["text"] + "\""}
                 author={"@" + data["data"][i]["author"]}
-                score={parseInt(data["data"][i]["score"])}
+                score={data["data"][i]["score"]}
                 url={"https://twitter.com/username/status/" + data["data"][i]["id"]} />
         </Grid>
     )
 }
 
 function TwitterBar() {
-    const data = jsonTest;//useAxios('tsla')
+    // Instead of setting data to jsonTest, it should be the python output.
+    const data = jsonTest;
+
+    //const response = useAxios('tsla');
+    //const data = response.data;
+
     console.log(data["data"][0]["author"])
-    var score_sum = 0;
+    var positive_sum = 0;
     for (var i = 0; i < data["data"].length; i++) {
-        score_sum += parseInt(data["data"][i]["score"]);
+        if (data["data"][i]["score"] === "+") {
+            positive_sum += 1;
+        } else if (data["data"][i]["score"] === "~") {
+            positive_sum += .5;
+        }
     }
-    var average = Math.round(score_sum / data["data"].length);
+    var average = Math.round((positive_sum / data["data"].length) * 100);
 
     let TweetCards = []
     for (let i=0; i < data["data"].length; i++) {
@@ -112,14 +121,14 @@ const NegativeColorTypography = withStyles({
     }
 })(Typography);
 
-export function TweetCard(props: { tweet: string; author: string; score: number; url: string; }) {
+export function TweetCard(props: { tweet: string; author: string; score: string; url: string; }) {
     const classes = useStyles();
 
     var TextColor;
-    if (props.score > 60) {
+    if (props.score === "+") {
         TextColor = PositiveColorTypography;
     }
-    else if (props.score > 40) {
+    else if (props.score === "~") {
         TextColor = NeutralColorTypography;
     }
     else {
@@ -149,7 +158,7 @@ export function TweetCard(props: { tweet: string; author: string; score: number;
                         </Grid>
                         <Grid item>
                             <CardContent>
-                                <TextColor variant="h5">
+                                <TextColor variant="h4">
                                     {props.score}
                                 </TextColor>
                             </CardContent>
