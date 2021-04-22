@@ -29,7 +29,7 @@ export const StockDisplay = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <StockGraph/>
+          <StockGraph_v2/>
           {/* <ImgMediaCard img={'gme.jpg'} desc={''} title={'Graph'}/> */}
         </Grid>
 

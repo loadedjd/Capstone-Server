@@ -4,14 +4,16 @@ import React from 'react';
 
 
  class StockGraph_v2 extends React.Component {
-     
 
+  static contextType = AppContext;
+  
    constructor(props) {
      super(props);
      this.state = {
        stockChartXValues: [],
        stockChartYValues: []
      }
+     
    }
 
    componentDidMount() {
@@ -19,10 +21,11 @@ import React from 'react';
    }
 
    fetchStock() {
+    const ticker = this.context.ticker
      const pointerToThis = this;
      console.log(pointerToThis);
      const API_KEY = 'HGJWFG4N8AQ66ICD';
-     let StockSymbol = 'tsla';
+     let StockSymbol = ticker;
      let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
      let stockChartXValuesFunction = [];
      let stockChartYValuesFunction = [];
@@ -54,7 +57,6 @@ import React from 'react';
    render() {
      return (
        <div>
-         {/* <h1>Graph</h1> */}
          <Plot
            data={[
              {
